@@ -22,14 +22,16 @@ const crearToken = (usuario, secreta, expiresIn) => {
 };
 const resolvers = {
   Query: {
-    obtenerUsuario: async (_, { token }) => {
+    obtenerUsuario: async (_, {  }, ctx) => { //cambiamos el input token por ctx, que ya contiene la info del usuario de la BD
       //con jwt tenemos que firmar el token para crearlo jwt.sig
 
       // y también verificarlo jwt.verify(
 
-      const usuarioId = await jwt.verify(token, process.env.SECRETA);
+     // const usuarioId = await jwt.verify(token, process.env.SECRETA);
 
-      return usuarioId;
+      //return usuarioId;
+
+      return ctx.usuario; //ya solo retornamos el context del usuario con toda su informacion
     },
 
     obtenerProductos: async () => {
